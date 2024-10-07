@@ -124,5 +124,98 @@ namespace Sistema_Funcionários
             txtNome.Focus();
             label6.Text = "";
         }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!txtCpf.Text.Equals("") && !txtEmail.Text.Equals("") && !txtEndereco.Text.Equals("") && !txtNome.Text.Equals(""))
+                {
+                    CadastroFuncionarios cadFuncionarios = new CadastroFuncionarios();
+                    cadFuncionarios.Id = int.Parse(label6.Text);
+                    cadFuncionarios.Email = txtEmail.Text;
+                    cadFuncionarios.Endereco = txtEndereco.Text;
+
+                    if (cadFuncionarios.atualizarFuncionario())
+                    {
+                        MessageBox.Show(" os dados do funcionário foram atualizadas com sucesso!");
+                        txtNome.Clear();
+                        txtEndereco.Clear();
+                        txtEmail.Clear();
+                        txtCpf.Clear();
+                        label6.Text = "";
+                        txtCpf.Focus();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel atualizar as informações do funcionário");
+                        txtNome.Clear();
+                        txtEndereco.Clear();
+                        txtEmail.Clear();
+                        txtCpf.Clear();
+                        label6.Text = "";
+                        txtCpf.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Favor localizar funcionário para atualizar informações");
+                    txtNome.Clear();
+                    txtEndereco.Clear();
+                    txtEmail.Clear();
+                    txtCpf.Clear();
+                    label6.Text = "";
+                    txtCpf.Focus();
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Erro ao atualizar dados do funcionário: " + ex.Message);
+            }
+        }
+
+        private void btnDeletar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!txtCpf.Text.Equals("") && !txtEmail.Text.Equals("") && !txtEndereco.Text.Equals("") && !txtNome.Text.Equals(""))
+                {
+                    CadastroFuncionarios cadFuncionarios = new CadastroFuncionarios();
+                    cadFuncionarios.Id = int.Parse(label6.Text);
+                    if (cadFuncionarios.deletarFuncionario())
+                    {
+                        MessageBox.Show("Funcionário deletado com sucesso!");
+                        txtNome.Clear();
+                        txtEndereco.Clear();
+                        txtEmail.Clear();
+                        txtCpf.Clear();
+                        label6.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel deletar funcionários");
+                        txtNome.Clear();
+                        txtEndereco.Clear();
+                        txtEmail.Clear();
+                        txtCpf.Clear();
+                        label6.Text = "";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Favor pesquisar qual funcionário deseja deletar");
+                    txtNome.Clear();
+                    txtEndereco.Clear();
+                    txtEmail.Clear();
+                    txtCpf.Clear();
+                    label6.Text = "";
+                    txtCpf.Focus();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Erro ao deletar funcionário");
+            }
+        }
     } 
 }

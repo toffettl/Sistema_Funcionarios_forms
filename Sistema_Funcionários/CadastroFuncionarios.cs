@@ -54,10 +54,10 @@ namespace Sistema_Funcionários
 
                 string insert = $" insert into funcionarios (nome,email,cpf,endereco) values ('{Nome}','{Email}','{Cpf}','{Endereco}')";
 
-                MySqlCommand comandSql = MysqlConexaoBanco.CreateCommand();
-                comandSql.CommandText = insert;
+                MySqlCommand comandoSql = MysqlConexaoBanco.CreateCommand();
+                comandoSql.CommandText = insert;
                 
-                comandSql.ExecuteNonQuery();
+                comandoSql.ExecuteNonQuery();
                 return true;
             }
             catch (Exception ex) 
@@ -85,6 +85,48 @@ namespace Sistema_Funcionários
             {
                 MessageBox.Show("Erro no banco de dados - método localizarFuncionario: " + ex.Message);
                 return null;
+            }
+        }
+         
+        public bool atualizarFuncionario()
+        {
+            try
+            {
+                MySqlConnection MysqlConexaoBanco = new MySqlConnection(ConexaoBanco.bancoServidor);
+                MysqlConexaoBanco.Open();
+
+                string update = $"update funcionarios set email = '{Email}', endereco = '{Endereco}' where id = '{Id}';";
+                MySqlCommand comandoSql = MysqlConexaoBanco.CreateCommand();
+                comandoSql.CommandText = update;
+
+                comandoSql.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro no banco de dados - método atualizarFuncionario " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool deletarFuncionario()
+        {
+            try
+            {
+                MySqlConnection MysqlConexaoBanco = new MySqlConnection(ConexaoBanco.bancoServidor);
+                MysqlConexaoBanco.Open();
+
+                string delete = $"delete from funcionarios where id = '{Id}';";
+                MySqlCommand comandoSql = MysqlConexaoBanco.CreateCommand();
+                comandoSql.CommandText = delete;
+
+                comandoSql.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro banco de dados - método deletarFuncionario: " + ex.Message);    
+                return false;
             }
         }
     }
